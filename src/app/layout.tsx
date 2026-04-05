@@ -7,6 +7,9 @@ const inter = Inter({ subsets: ['cyrillic', 'latin'] });
 export const metadata: Metadata = {
   title: 'AuraGuide | Познание себя через Астрологию и Дизайн Человека',
   description: 'Единый портал-агрегатор для глубокого самопознания. Постройте свою натальную карту и бодиграф онлайн.',
+  verification: {
+    yandex: '4043f64855d7af3e',
+  },
 };
 
 import Navbar from '@/components/Navbar';
