@@ -76,7 +76,6 @@ export default function TarotPage() {
                 scale: 1,
                 boxShadow: [
                   "0px 0px 0px rgba(168,85,247,0)",
-                  "0px 0px 80px rgba(168,85,247,0.8)",
                   "0px 0px 30px rgba(168,85,247,0.4)"
                 ] 
               }}
