@@ -1,5 +1,6 @@
 import prisma from '@/lib/prisma';
 import { Sparkles, BookOpen, AlertTriangle } from 'lucide-react';
+import Link from 'next/link';
 
 export const revalidate = 0; // Disable cache for dev
 
@@ -39,9 +40,13 @@ export default async function ArticlesPage() {
                 {article.category}
               </span>
             </div>
-            <p className="text-gray-300 leading-relaxed mb-4">{article.content}</p>
-            <div className="text-sm text-gray-500">
-              Опубликовано: {new Date(article.createdAt).toLocaleDateString('ru-RU')}
+            <p className="text-gray-300 leading-relaxed mb-4 line-clamp-3">{article.content}</p>
+            <div className="flex items-center justify-between mt-4 pt-4 border-t border-white/10">
+              <div className="text-sm text-gray-500 flex items-center gap-2">
+                <Sparkles className="w-4 h-4 text-purple-500/50" />
+                Опубликовано: {new Date(article.createdAt).toLocaleDateString('ru-RU')}
+              </div>
+              <Link href={`/articles/${article.slug}`} className="text-purple-400 font-bold hover:text-purple-300 transition-colors">Читать полностью &rarr;</Link>
             </div>
           </div>
         ))}

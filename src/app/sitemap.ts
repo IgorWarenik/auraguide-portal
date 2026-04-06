@@ -1,8 +1,20 @@
 import { MetadataRoute } from 'next';
+import prisma from '@/lib/prisma';
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  // Берет домен из окружения или использует дефолтный домен Vercel
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://auraguide-portal.vercel.app';
+
+  // Fetch all articles to dynamically populate sitemap
+  const articles = await prisma.article.findMany({
+    select: { slug: true, createdAt: true }
+  });
+
+  const articleRoutes = articles.map((article) => ({
+    url: `${baseUrl}/articles/${article.slug}`,
+    lastModified: article.createdAt,
+    changeFrequency: 'weekly' as const,
+    priority: 0.7,
+  }));
 
   return [
     {
@@ -41,5 +53,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'daily',
       priority: 0.7,
     },
+    ...articleRoutes,
   ];
 }
