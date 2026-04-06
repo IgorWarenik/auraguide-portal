@@ -54,6 +54,7 @@ export default function TarotPage() {
               exit={{ rotateY: 180, opacity: 0 }}
               transition={{ duration: 0.6 }}
               className="absolute inset-0 rounded-2xl border-2 border-purple-500/30 bg-gradient-to-br from-[#1d0f3b] to-[#0f172a] shadow-[0_0_30px_rgba(157,78,221,0.2)] flex items-center justify-center cursor-pointer hover:shadow-[0_0_50px_rgba(157,78,221,0.4)] transition-shadow"
+              style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}
               onClick={!isDrawing ? drawCard : undefined}
             >
               {isDrawing ? (
@@ -81,6 +82,7 @@ export default function TarotPage() {
               }}
               transition={{ duration: 1.2, type: "spring", stiffness: 80 }}
               className="absolute inset-0 rounded-2xl bg-[#0f172a] border border-purple-500/50 overflow-hidden flex flex-col relative z-20"
+              style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}
             >
               <div 
                 className="h-[65%] w-full bg-cover bg-center brightness-90 hover:brightness-110 transition-all duration-700"
