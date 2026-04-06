@@ -7,9 +7,29 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   const article = await prisma.article.findUnique({ where: { slug: params.slug } });
   if (!article) return { title: 'Статья не найдена' };
   
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://auraguide-portal.vercel.app';
+  const ogUrl = new URL(`${baseUrl}/api/og`);
+  ogUrl.searchParams.set('title', article.title);
+  ogUrl.searchParams.set('category', article.category);
+
   return {
-    title: `${article.title} | AuraGuide База Знаний`,
+    title: `${article.title} | AuraGuide`,
     description: article.content.substring(0, 160) + '...',
+    openGraph: {
+      title: article.title,
+      description: article.content.substring(0, 160),
+      images: [
+        {
+          url: ogUrl.toString(),
+          width: 1200,
+          height: 630,
+        }
+      ]
+    },
+    twitter: {
+      card: 'summary_large_image',
+      images: [ogUrl.toString()],
+    }
   };
 }
 
