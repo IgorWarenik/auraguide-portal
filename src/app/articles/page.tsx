@@ -18,11 +18,10 @@ export default async function ArticlesPage() {
 
   return (
     <div className="min-h-screen pt-24 pb-12 px-4 max-w-4xl mx-auto">
-      <div className="flex items-center gap-3 mb-4">
+      <div className="flex items-center gap-3 mb-10">
          <BookOpen className="w-8 h-8 text-purple-500" />
          <h1 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-400">База знаний AuraGuide</h1>
       </div>
-      <p className="text-gray-400 mb-12">Здесь хранятся статьи, загруженные из нашей подключенной базы данных через Prisma ORM.</p>
       
       {dbError && (
         <div className="p-6 mb-8 rounded-2xl bg-yellow-500/10 border border-yellow-500/30 flex items-center gap-4 text-yellow-300">
