@@ -10,13 +10,23 @@ export default function CheckoutPage() {
   const [isProcessing, setIsProcessing] = useState(false);
   const router = useRouter();
 
-  const handleCheckout = () => {
+  const handleCheckout = async () => {
     setIsProcessing(true);
-    // Имитация общения с API Stripe/ЮKassa
-    setTimeout(() => {
-      localStorage.setItem('auraGuidePremium', 'true');
-      router.push('/dashboard');
-    }, 2500);
+    try {
+      const res = await fetch('/api/checkout', { method: 'POST' });
+      const data = await res.json();
+      
+      if (data.confirmation?.confirmation_url) {
+        // Уводим клиента на страницу банка (ЮKassa) или наш Mock-редирект
+        window.location.href = data.confirmation.confirmation_url;
+      } else {
+        console.error('Ошибка платежного шлюза:', data);
+        setIsProcessing(false);
+      }
+    } catch (e) {
+      console.error(e);
+      setIsProcessing(false);
+    }
   };
 
   return (
