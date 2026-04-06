@@ -72,7 +72,61 @@ export default function DashboardPage() {
 
         {/* Секция контента */}
         <div className="w-full md:w-2/3 space-y-6">
-          <h3 className="text-2xl font-bold text-white mb-6">Ваши активные хроники</h3>
+          
+          {/* Daily Transit Widget */}
+          <div className="bg-[#1a0f30] border border-purple-500/20 rounded-3xl p-8 relative overflow-hidden shadow-[0_0_40px_rgba(168,85,247,0.1)]">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-pink-600/10 rounded-full blur-[80px]" />
+            <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
+               <Star className="text-pink-400" /> Космическая Погода
+            </h3>
+            
+            {isPremium ? (
+              <div className="space-y-4">
+                <div className="bg-purple-900/30 rounded-xl p-4 border border-purple-500/20 flex gap-4 items-start">
+                   <div className="text-4xl">🌕</div>
+                   <div>
+                     <h4 className="font-bold text-lg text-purple-200">Полнолуние во Льве</h4>
+                     <p className="text-gray-300 text-sm mt-1">Сегодняшний день несет мощную энергию самопроявления. Оптимальное время для публичных выступлений, но избегайте гордыни в делах с близкими. Ваша аура сейчас излучает огненный магнетизм.</p>
+                   </div>
+                </div>
+                
+                <div className="bg-blue-900/30 rounded-xl p-4 border border-blue-500/20 flex gap-4 items-start">
+                   <div className="text-4xl">🪐</div>
+                   <div>
+                     <h4 className="font-bold text-lg text-blue-200">Транзит: Меркурий в тригоне с Сатурном</h4>
+                     <p className="text-gray-300 text-sm mt-1">Отличный день для подписания контрактов и долгосрочного планирования. Интеллект работает предельно четко.</p>
+                   </div>
+                </div>
+                
+                <button className="w-full mt-2 bg-gradient-to-r from-purple-600 to-pink-600 hover:opacity-90 py-3 rounded-xl font-bold shadow-lg transition-all text-white flex items-center justify-center gap-2">
+                  <Sparkles className="w-5 h-5"/> Сгенерировать персональный Аудио-разбор дня
+                </button>
+              </div>
+            ) : (
+              <div className="relative">
+                <div className="space-y-4 filter blur-md select-none opacity-50">
+                  <div className="bg-purple-900/30 rounded-xl p-4 border border-purple-500/20 flex gap-4 items-start">
+                     <div className="text-4xl">🌕</div>
+                     <div>
+                       <h4 className="font-bold text-lg text-purple-200">Скрытый транзит</h4>
+                       <p className="text-gray-300 text-sm mt-1">Этот текст скрыт. Влияние планет на вас сегодня доступно только подписчикам Premium...</p>
+                     </div>
+                  </div>
+                </div>
+                
+                <div className="absolute inset-0 flex flex-col items-center justify-center z-10 text-center">
+                   <Lock className="w-10 h-10 text-pink-400 mb-3" />
+                   <h4 className="font-bold text-lg text-white mb-2">Ежедневный Прогноз Заблокирован</h4>
+                   <p className="text-sm text-gray-300 mb-4 px-6">Откройте Premium, чтобы получать ежедневные личные подсказки от Вселенной.</p>
+                   <Link href="/checkout" className="px-6 py-2 bg-pink-600 hover:bg-pink-500 rounded-full font-bold text-white shadow-lg transition-all text-sm">
+                     Открыть Доступ
+                   </Link>
+                </div>
+              </div>
+            )}
+          </div>
+
+          <h3 className="text-2xl font-bold text-white mb-6 pt-6">Ваши активные хроники</h3>
           
           {/* Card 1 */}
           <Link href="/matrix" className="block bg-[#1a0b12] border border-amber-500/20 p-6 rounded-2xl hover:bg-amber-500/10 transition-colors group">
@@ -101,42 +155,21 @@ export default function DashboardPage() {
               <div className="text-blue-500 font-bold group-hover:translate-x-2 transition-transform">→</div>
             </div>
           </Link>
-
-          {/* Premium Card Dynamics */}
-          {isPremium ? (
-             <Link href="/premium" className="block bg-gradient-to-r from-green-900/40 to-emerald-900/40 border border-green-500/30 p-6 rounded-2xl hover:shadow-[0_0_20px_rgba(16,185,129,0.2)] transition-all group relative overflow-hidden">
-                <div className="absolute top-0 right-0 bg-green-500 text-white text-xs font-bold px-3 py-1 rounded-bl-xl shadow-md">РАЗБЛОКИРОВАНО</div>
-                <div className="flex justify-between items-center">
-                  <div className="flex items-center gap-4">
-                    <div className="bg-green-500/20 p-3 rounded-lg border border-green-500/30"><BookOpen className="text-green-400 w-6 h-6" /></div>
-                    <div>
-                      <h4 className="font-bold text-green-400 text-lg">Комплексный Разбор Высшего Я</h4>
-                      <p className="text-green-200/60 text-sm">Доступ к вашему ежедневному аудио-потоку открыт.</p>
-                    </div>
-                  </div>
-                  <div className="bg-green-600 p-2 rounded-lg group-hover:bg-green-500 transition-colors shadow-[0_0_15px_rgba(16,185,129,0.5)]">
-                    <CheckCircle2 className="text-white w-5 h-5" />
-                  </div>
-                </div>
-             </Link>
-          ) : (
-             <Link href="/checkout" className="block bg-gradient-to-r from-purple-900/40 to-pink-900/40 border border-purple-500/30 p-6 rounded-2xl relative overflow-hidden group hover:border-pink-500/50 transition-colors cursor-pointer">
-                <div className="absolute top-0 right-0 bg-purple-500 text-white text-xs font-bold px-3 py-1 rounded-bl-xl">ПРЕМИУМ</div>
-                <div className="flex justify-between items-center opacity-70 group-hover:opacity-100 transition-opacity">
-                  <div className="flex items-center gap-4">
-                    <div className="bg-white/10 p-3 rounded-lg"><BookOpen className="text-purple-300 w-6 h-6" /></div>
-                    <div>
-                      <h4 className="font-bold text-purple-300 text-lg">Комплексный Разбор Высшего Я</h4>
-                      <p className="text-gray-400 text-sm">Книга на 120 стр + подписка. Нажмите для оформления.</p>
-                    </div>
-                  </div>
-                  <div className="bg-purple-600 p-2 rounded-lg backdrop-blur-sm group-hover:bg-pink-600 transition-colors flex items-center gap-2">
-                    <Lock className="text-white w-4 h-4" /> <span className="text-white text-sm font-bold pr-1">ЗАМОК</span>
-                  </div>
-                </div>
-             </Link>
-          )}
           
+          {/* Card 3 (Tarot) */}
+          <Link href="/tarot" className="block bg-[#1b0a2c] border border-purple-500/20 p-6 rounded-2xl hover:bg-purple-500/10 transition-colors group">
+            <div className="flex justify-between items-center">
+              <div className="flex items-center gap-4">
+                <div className="bg-purple-500/20 p-3 rounded-lg"><CheckCircle2 className="text-purple-500 w-6 h-6" /></div>
+                <div>
+                  <h4 className="font-bold text-purple-400 text-lg">Дневной Расклад Таро</h4>
+                  <p className="text-gray-400 text-sm">Ваша персональная карта дня доступна.</p>
+                </div>
+              </div>
+              <div className="text-purple-500 font-bold group-hover:translate-x-2 transition-transform">→</div>
+            </div>
+          </Link>
+
         </div>
       </motion.div>
     </div>
