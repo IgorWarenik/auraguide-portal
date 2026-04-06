@@ -3,8 +3,9 @@ import { notFound } from 'next/navigation';
 import { Sparkles, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 
-export async function generateMetadata({ params }: { params: { slug: string } }) {
-  const article = await prisma.article.findUnique({ where: { slug: params.slug } });
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const article = await prisma.article.findUnique({ where: { slug } });
   if (!article) return { title: 'Статья не найдена' };
   
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://auraguide-portal.vercel.app';
@@ -33,9 +34,10 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   };
 }
 
-export default async function ArticleDynamicPage({ params }: { params: { slug: string } }) {
+export default async function ArticleDynamicPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
   const article = await prisma.article.findUnique({
-    where: { slug: params.slug }
+    where: { slug }
   });
 
   if (!article) {
